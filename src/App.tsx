@@ -1,9 +1,11 @@
-import React, { useEffect, Suspense } from '"'"'"'"'"'"'"'"'react'"'"'"'"'"'"'"'"';
-import { BrowserRouter, Route, Routes } from '"'"'"'"'"'"'"'"'react-router-dom'"'"'"'"'"'"'"'"';
-import { QueryClient, QueryClientProvider, QueryClientProviderProps } from '"'"'"'"'"'"'"'"'@tanstack/react-query'"'"'"'"'"'"'"'"';
-import { ReactQueryDevtools } from '"'"'"'"'"'"'"'"'@tanstack/react-query-devtools'"'"'"'"'"'"'"'"';
+import React, { useEffect, Suspense } from '"'"'react'"'"';
+import { BrowserRouter, Route, Routes } from '"'"'react-router-dom'"'"';
+import { QueryClient, QueryClientProvider, QueryClientProviderProps } from '"'"'@tanstack/react-query'"'"';
 
 const queryClient = new QueryClient();
+
+const HomePage = React.lazy(() => import('"'"'./pages/HomePage'"'"'));
+const MovieDetailsPage = React.lazy(() => import('"'"'./pages/MovieDetailsPage'"'"'));
 
 function App() {
   return (
@@ -11,14 +13,13 @@ function App() {
       <BrowserRouter>
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
-            {/* Add your routes here */}
+            <Route path="/" element={<HomePage />} />
+            <Route path="/movie/:id" element={<MovieDetailsPage />} />
           </Routes>
         </Suspense>
       </BrowserRouter>
-      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
 }
 
 export default App;
-
